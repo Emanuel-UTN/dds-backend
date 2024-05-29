@@ -1,6 +1,8 @@
 import express from 'express';
 import './base-orm/sqlite-init.js'; // crear base si no existe
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 // Crear el servidor
 const app = express();
@@ -22,8 +24,16 @@ app.get('/', (req, res) => {
     res.send("Backend inicial dds-backend!!");
 });
 
-// Iniciar el servidor
-const port = 3000;
-app.listen(port, () => {
-    console.log(`Servidor iniciado en http://localhost:${port}`);
-});
+// Normalizar las rutas
+const __filename = fileURLToPath(import.meta.url);
+
+// Verificar si el módulo actual es el principal
+if (__filename === process.argv[1]) {
+    const port = process.env.PORT || 3000;
+    app.locals.fechaInicio = new Date();
+    app.listen(port, () => {
+        console.log(`Servidor iniciado en http://localhost:${port}`);
+    });
+}
+
+export default app; // exportar app para testearlo

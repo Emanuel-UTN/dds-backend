@@ -22,4 +22,4 @@ const authenticateJWT = (req, res, next) => {
     }
 };
 
-export {accessTokenSecret, refreshTokenSecret, authenticateJWT};
+export default {accessTokenSecret, refreshTokenSecret, authenticateJWT};
