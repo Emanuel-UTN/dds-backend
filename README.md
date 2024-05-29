@@ -1,2 +1,2 @@
 # dds-backend
-Backend del proyecto Pymes2024
+Backend con express del proyecto Pymes2024
