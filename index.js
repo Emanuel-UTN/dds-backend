@@ -2,6 +2,11 @@ import express from 'express';
 
 // Crear el servidor
 const app = express();
+app.use(express.json());
+
+// Agregar Routers
+import articulosFamiliasRouter from './routes/articulosFamiliasMock.js';
+app.use(articulosFamiliasRouter);
 
 // Controlar la ruta
 app.get('/', (req, res) => {
