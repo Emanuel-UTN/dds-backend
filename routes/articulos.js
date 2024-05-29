@@ -161,4 +161,32 @@ router.delete('/api/articulos/:id', async (req, res) => {
     }
 });
 
+//----------------------------------------------
+//-----------------SEGURIDAD--------------------
+//----------------------------------------------
+import auth from '../seguridad/auth.js';
+
+router.get(
+    "/api/articulosJWT",
+    auth.authenticateJWT,
+    async (req, res) => {
+        /* #swagger.security = [{
+            "bearerAuth1": []
+        }] */
+        // #swagger.tags = ['Articulos']
+        // #swagger.summary = 'Obtener todos los articulos con JWT, solo para rol: member'
+
+        const { rol } = res.locals.user;
+        if(rol !== "member"){
+            return res.status(403).json({ message: "No tienes permisos para acceder a este recurso!" });
+        }
+
+        let items = await db.articulos.findAll({
+            attributes: ["IdArticulo", "Nombre", "Precio", "CodigoDeBarra", "IdArticuloFamilia", "Stock", "FechaAlta", "Activo"],
+            order: [["Nombre", "ASC"]]
+        });
+        res.json(items);
+    }
+);
+
 export default router;
