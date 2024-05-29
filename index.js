@@ -8,6 +8,8 @@ app.use(express.json());
 // Agregar Routers
 import articulosFamiliasRouter from './routes/articulosFamilias.js';
 app.use(articulosFamiliasRouter);
+import articulosRouter from './routes/articulos.js';
+app.use(articulosRouter);
 
 // Controlar la ruta
 app.get('/', (req, res) => {
